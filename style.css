@@ -1,0 +1,362 @@
+/* --- Core Variables & Design Palette --- */
+:root {
+    --bg-dark: #0f111a;
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --accent-blue: #38bdf8;
+    --accent-purple: #c084fc;
+    --glass-bg: rgba(30, 41, 59, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --board-size: 340px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+    padding: 20px;
+}
+
+/* --- Premium Background Ambient Blurs --- */
+.bg-blur-circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    z-index: -1;
+    opacity: 0.15;
+}
+.circle-1 {
+    width: 300px;
+    height: 300px;
+    background: var(--accent-blue);
+    top: 15%;
+    left: 20%;
+}
+.circle-2 {
+    width: 350px;
+    height: 350px;
+    background: var(--accent-purple);
+    bottom: 15%;
+    right: 20%;
+}
+
+/* --- Containers --- */
+.app-container {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    width: 100%;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Header & Form Fields --- */
+.game-config {
+    padding: 24px;
+    text-align: center;
+}
+
+.title-gradient {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+}
+
+.control-row {
+    margin-bottom: 16px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 6px;
+}
+
+label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+}
+
+select, input[type="text"] {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid var(--glass-border);
+    padding: 10px 14px;
+    border-radius: 8px;
+    color: var(--text-main);
+    font-size: 0.95rem;
+    width: 100%;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+select:focus, input[type="text"]:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+}
+
+.players-setup {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.player-input {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 6px;
+}
+
+.custom-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #0284c7, #9333ea);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(147, 51, 234, 0.4);
+}
+
+/* --- Scoreboard Structures --- */
+.scoreboard {
+    display: flex;
+    padding: 12px;
+    gap: 12px;
+}
+
+.score-card {
+    flex: 1;
+    background: rgba(15, 23, 42, 0.3);
+    border: 1px solid transparent;
+    padding: 12px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.4s ease;
+}
+
+.score-card.active-turn {
+    border-color: rgba(56, 189, 248, 0.4);
+    background: rgba(56, 189, 248, 0.08);
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.1);
+}
+
+.score-meta {
+    display: flex;
+    flex-direction: column;
+    max-width: 70%;
+}
+
+.display-emoji {
+    font-size: 1.2rem;
+    margin-bottom: 2px;
+}
+
+.display-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-muted);
+}
+
+.score-card.active-turn .display-name {
+    color: var(--text-main);
+}
+
+.score-digits {
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+/* --- Dynamic Ribbon Info --- */
+.status-ribbon {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-align: center;
+    min-height: 28px;
+}
+
+/* ==========================================
+   STABLE TILES GRID MATRIX CORE 
+   ========================================== */
+.game-board {
+    width: var(--board-size);
+    height: var(--board-size);
+    padding: 12px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.cell {
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.2rem;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.25s ease;
+}
+
+.cell:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Win Combination Sequence Animation State */
+.cell.win-highlight {
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.25), rgba(192, 132, 252, 0.25));
+    border-color: var(--accent-blue);
+    animation: pulseGlow 1.2s infinite alternate ease-in-out;
+}
+
+@keyframes pulseGlow {
+    0% { transform: scale(1); box-shadow: 0 0 5px rgba(56, 189, 248, 0.2); }
+    100% { transform: scale(0.96); box-shadow: 0 0 15px rgba(56, 189, 248, 0.4); }
+}
+
+/* Disabled clicks once a state is committed */
+.cell.occupied {
+    cursor: not-allowed;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 400px) {
+    :root {
+        --board-size: 300px;
+    }
+    .game-board {
+        gap: 8px;
+        padding: 8px;
+    }
+    .cell {
+        font-size: 1.8rem;
+    }
+}
+/* --- Clean Win Grid Highlight (No Background Glows) --- */
+.cell.win-highlight {
+    position: relative;
+    /* Keeps the box background normal, no color fills */
+}
+
+/* This builds the sharp strike-through line */
+.cell.win-highlight::after {
+    content: '';
+    position: absolute;
+    background: #00f2fe; /* Elegant solid cyan line */
+    box-shadow: 0 0 8px rgba(0, 242, 254, 0.6); /* Subtle line glow only */
+    z-index: 5;
+    animation: drawStrikeLine 0.3s ease-out forwards;
+}
+
+/* Horizontal Strike Line Configuration */
+.cell.strike-horizontal::after {
+    width: 0%;
+    height: 5px; /* Line thickness */
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+/* Vertical Strike Line Configuration */
+.cell.strike-vertical::after {
+    width: 5px;  /* Line thickness */
+    height: 0%;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+}
+
+/* Diagonal 1 (Top-Left to Bottom-Right) */
+.cell.strike-diagonal-1::after {
+    width: 0%;
+    height: 5px;
+    top: 0;
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: top left;
+}
+
+/* Diagonal 2 (Top-Right to Bottom-Left) */
+.cell.strike-diagonal-2::after {
+    width: 0%;
+    height: 5px;
+    top: 0;
+    right: 0;
+    transform: rotate(-45deg);
+    transform-origin: top right;
+}
+
+/* Animation Engine to draw the line smoothly */
+@keyframes drawStrikeLine {
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes drawStrikeLineVertical {
+    to {
+        height: 100%;
+    }
+}
+
+/* Special tracking rule for vertical height animation */
+.cell.strike-vertical::after { 
+    animation-name: drawStrikeLineVertical; 
+}
